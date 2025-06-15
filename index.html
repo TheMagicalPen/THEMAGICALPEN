@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Magical Pen | Mahvish Athar's Literary Universe</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -200,6 +200,64 @@
       }
     }
 
+    /* Cosmic Opening Animation */
+    @keyframes cosmicEntrance {
+      0% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .cosmic-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #1a0524 0%, #0a0012 100%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeOut 2s ease-in-out 3s forwards;
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    .cosmic-logo {
+      font-family: 'Parisienne', cursive;
+      font-size: 5rem;
+      color: #fff;
+      text-shadow: 0 0 20px var(--primary-light);
+      animation: cosmicEntrance 2s ease-in-out, glowPulse 3s ease-in-out infinite 2s;
+    }
+
+    /* Permanent Falling Elements */
+    .permanent-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      animation: floatParticle linear infinite;
+    }
+
+    .star-particle {
+      color: var(--primary-light);
+      text-shadow: 0 0 10px var(--primary);
+    }
+
+    .flower-particle {
+      color: var(--accent-light);
+      text-shadow: 0 0 8px var(--accent);
+    }
+
+    @keyframes floatParticle {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
     /* Header Styles */
     header {
       background: rgba(255, 255, 255, 0.92);
@@ -305,6 +363,7 @@
       margin: 40px 0;
       position: relative;
       overflow: hidden;
+      perspective: 1000px;
     }
     
     .whisper-line {
@@ -315,15 +374,25 @@
       font-size: 1.8rem;
       color: var(--primary);
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 1.5s ease;
+      transform: translateY(20px) rotateX(45deg);
+      transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
       text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: rgba(255,255,255,0.7);
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(138, 79, 255, 0.2);
+      backdrop-filter: blur(5px);
     }
     
     .whisper-line.active {
       opacity: 1;
-      transform: translateY(0);
-      animation: pulse 6s infinite, textShadow 8s infinite;
+      transform: translateY(0) rotateX(0);
+      animation: textGlow 6s infinite;
+    }
+
+    @keyframes textGlow {
+      0%, 100% { box-shadow: 0 5px 15px rgba(138, 79, 255, 0.2); }
+      50% { box-shadow: 0 10px 30px rgba(138, 79, 255, 0.4); }
     }
 
     /* Birthday Countdown */
@@ -405,19 +474,6 @@
       animation: textShadow 4s infinite;
     }
 
-    .birthday-poem {
-      display: none;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      line-height: 1.8;
-      color: var(--text);
-      margin-top: 30px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 10px;
-      border-left: 3px solid var(--accent);
-    }
-
     /* Floating Elements */
     .floating {
       position: absolute;
@@ -448,23 +504,6 @@
       pointer-events: none;
       z-index: 1;
       animation: floatParticle linear infinite;
-    }
-
-    @keyframes floatParticle {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-      }
     }
 
     .floating-feather {
@@ -861,6 +900,144 @@
       margin-bottom: 20px;
     }
 
+    /* Connect Section */
+    .connect-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 60px auto;
+      max-width: 1000px;
+      padding: 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .connect-card {
+      flex: 1;
+      min-width: 250px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(243, 229, 255, 0.7) 100%);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      border: 1px solid rgba(138, 79, 255, 0.2);
+      transition: all 0.5s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .connect-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .connect-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+
+    .connect-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(138, 79, 255, 0.05) 0%, rgba(255, 107, 158, 0.05) 100%);
+      z-index: -1;
+      transition: all 0.5s ease;
+    }
+
+    .connect-card:hover::before {
+      background: linear-gradient(135deg, rgba(138, 79, 255, 0.1) 0%, rgba(255, 107, 158, 0.1) 100%);
+    }
+
+    .connect-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      display: inline-block;
+      transition: all 0.5s ease;
+      color: var(--primary);
+    }
+
+    .connect-card:hover .connect-icon {
+      transform: scale(1.2);
+      color: var(--accent);
+    }
+
+    .connect-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .connect-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 25px;
+    }
+
+    .connect-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(138, 79, 255, 0.3);
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(138, 79, 255, 0.4);
+    }
+
+    .connect-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.5s ease;
+    }
+
+    .connect-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Special Instagram gradient */
+    .instagram-card .connect-icon {
+      background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Special Substack gradient */
+    .substack-card .connect-icon {
+      background: linear-gradient(45deg, #ff6719, #e62e05);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Special Email gradient */
+    .email-card .connect-icon {
+      background: linear-gradient(45deg, #4285F4, #34A853, #FBBC05, #EA4335);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     /* Footer Styles */
     footer {
       background: linear-gradient(180deg, rgba(26, 5, 36, 0.9) 0%, #1a0524 100%);
@@ -1107,49 +1284,6 @@
       color: var(--primary);
     }
 
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .main-title {
-        font-size: 4rem;
-      }
-
-      .main-subtitle {
-        font-size: 1.3rem;
-      }
-
-      .intro-poem {
-        padding: 40px 30px;
-      }
-
-      .section-title {
-        font-size: 2.5rem;
-      }
-
-      .essays-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .poetry-container {
-        flex-direction: column;
-      }
-
-      .poem-card {
-        max-width: 100%;
-      }
-    }
-
-    /* Scroll Animation Elements */
-    .scroll-animation {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
-
-    .scroll-animation.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     /* Birthday Special */
     .birthday-special {
       display: none;
@@ -1196,9 +1330,70 @@
       background-clip: text;
       animation: shimmer 3s linear infinite;
     }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .main-title {
+        font-size: 4rem;
+      }
+
+      .main-subtitle {
+        font-size: 1.3rem;
+      }
+
+      .intro-poem {
+        padding: 40px 30px;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+      }
+
+      .essays-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .poetry-container {
+        flex-direction: column;
+      }
+
+      .poem-card {
+        max-width: 100%;
+      }
+      
+      .connect-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .connect-card {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+
+    /* Scroll Animation Elements */
+    .scroll-animation {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .scroll-animation.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
+  <!-- Cosmic Opening Animation -->
+  <div class="cosmic-overlay">
+    <div class="cosmic-logo">The Magical Pen</div>
+  </div>
+
+  <!-- Permanent Falling Elements -->
+  <div id="permanent-particles"></div>
+
   <!-- Floating Navigation -->
   <div class="floating-nav">
     <div class="nav-toggle">
@@ -1230,6 +1425,7 @@
 
     <div class="title-container animate-on-load">
       <h1 class="main-title">The Magical Pen</h1>
+      <br>
       <p class="main-subtitle">Mahvish Athar's Literary Universe</p>
     </div>
     
@@ -1239,6 +1435,8 @@
         <div class="whisper-line">"The Magical Pen — because some stories choose their own way into the world."</div>
         <div class="whisper-line">"When ink flows, the universe leans in to listen."</div>
         <div class="whisper-line">"Dreams slip gently between the lines."</div>
+        <div class="whisper-line">"Your words are constellations in the sky of human connection."</div>
+        <div class="whisper-line">"The page awaits your cosmic signature."</div>
       </div>
     </div>
     
@@ -1423,7 +1621,7 @@
         <!-- Poem Card 3 (Custom Poem 1) -->
         <div class="poem-card scroll-animation">
           <h3 class="poem-title">The Language of Stars</h3>
-          <div class="poem-meta">A gift for Mahvish</div>
+          <div class="poem-meta"></div>
           <div class="poem-excerpt">
             <p>Your words are constellations<br>
             Mapping the uncharted soul,<br>
@@ -1436,7 +1634,7 @@
         <!-- Poem Card 4 (Custom Poem 2) -->
         <div class="poem-card scroll-animation">
           <h3 class="poem-title">Ink Alchemy</h3>
-          <div class="poem-meta">A gift for Mahvish</div>
+          <div class="poem-meta"></div>
           <div class="poem-excerpt">
             <p>You transmute pain to poetry,<br>
             Turn heartache into art,<br>
@@ -1460,26 +1658,35 @@
         </div>
       </div>
 
-      <div class="contact-info scroll-animation" style="max-width: 800px; margin: 0 auto;">
-        <div class="info-card">
-          <div class="card-icon"><i class="fab fa-instagram"></i></div>
+      <div class="connect-container">
+        <!-- Instagram Card -->
+        <div class="connect-card scroll-animation instagram-card">
+          <div class="connect-icon">
+            <i class="fab fa-instagram"></i>
+          </div>
           <h3>Instagram</h3>
-          <p>Follow for daily literary magic</p>
-          <a href="https://www.instagram.com/mahvishathartalks/" class="read-more-btn" target="_blank">Follow @mahvishathartalks</a>
+          <p>Follow for daily literary magic and poetic insights</p>
+          <a href="https://www.instagram.com/mahvishathartalks/" class="connect-btn" target="_blank">Follow Now</a>
         </div>
-        
-        <div class="info-card">
-          <div class="card-icon"><i class="fas fa-book-open"></i></div>
+
+        <!-- Substack Card -->
+        <div class="connect-card scroll-animation substack-card">
+          <div class="connect-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
           <h3>Substack</h3>
-          <p>Read essays, poetry, and more</p>
-          <a href="https://mahvishathartalks.substack.com" class="read-more-btn" target="_blank">Visit Substack</a>
+          <p>Read essays, poetry, and exclusive content</p>
+          <a href="https://mahvishathartalks.substack.com" class="connect-btn" target="_blank">Visit Substack</a>
         </div>
-        
-        <div class="info-card">
-          <div class="card-icon"><i class="fas fa-envelope"></i></div>
+
+        <!-- Email Card -->
+        <div class="connect-card scroll-animation email-card">
+          <div class="connect-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
           <h3>Email</h3>
-          <p>For literary inquiries</p>
-          <a href="mailto:th3magicalp3n@gmail.com" class="read-more-btn">Send Email</a>
+          <p>For literary inquiries and collaborations</p>
+          <a href="mailto:th3magicalp3n@gmail.com" class="connect-btn">Send Email</a>
         </div>
       </div>
     </section>
@@ -1531,6 +1738,73 @@
   </div>
 
   <script>
+    // Cosmic Opening Animation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create permanent falling particles
+      function createPermanentParticles() {
+        const container = document.getElementById('permanent-particles');
+        const symbols = ['✦', '✧', '❀', '✿', '✺', '✤'];
+        
+        for (let i = 0; i < 15; i++) { // Reduced to 15 for better performance
+          const particle = document.createElement('div');
+          particle.className = 'permanent-particle ' + 
+                              (Math.random() > 0.5 ? 'star-particle' : 'flower-particle');
+          
+          // Random properties
+          const size = Math.random() * 20 + 10;
+          const posX = Math.random() * 100;
+          const delay = Math.random() * 10;
+          const duration = Math.random() * 20 + 10;
+          const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+          
+          particle.innerHTML = symbol;
+          particle.style.fontSize = `${size}px`;
+          particle.style.left = `${posX}%`;
+          particle.style.animationDelay = `${delay}s`;
+          particle.style.animationDuration = `${duration}s`;
+          
+          container.appendChild(particle);
+        }
+      }
+
+      // Enhanced Whisper Line Transitions
+      const whisperLines = document.querySelectorAll('.whisper-line');
+      let currentLine = 0;
+      
+      function rotateWhisperLines() {
+        // Fade out current line
+        whisperLines[currentLine].classList.remove('active');
+        
+        // Calculate next line
+        currentLine = (currentLine + 1) % whisperLines.length;
+        
+        // Fade in next line after a short delay
+        setTimeout(() => {
+          whisperLines[currentLine].classList.add('active');
+        }, 800);
+        
+        // Schedule next rotation
+        setTimeout(rotateWhisperLines, 5000);
+      }
+      
+      // Start animations
+      createPermanentParticles();
+      setTimeout(rotateWhisperLines, 5000);
+
+      // Add floating effect to intro poem
+      const introPoem = document.querySelector('.intro-poem');
+      introPoem.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        
+        introPoem.style.transform = `perspective(1000px) rotateX(${(y - 0.5) * 5}deg) rotateY(${(x - 0.5) * 5}deg)`;
+      });
+      
+      introPoem.addEventListener('mouseleave', () => {
+        introPoem.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+      });
+    });
+
     // Whisper Lines Rotator
     const whisperLines = document.querySelectorAll('.whisper-line');
     let currentLine = 0;
@@ -1648,7 +1922,7 @@
         When your pen touches page,<br>
         For even galaxies pause to hear<br>
         The magic you engage.</p>`,
-        meta: "Written for Mahvish's birthday"
+        meta: "Written for You"
       },
       ink: {
         title: "Ink Alchemy",
@@ -1666,7 +1940,7 @@
         Where light and shadow play,<br>
         And readers find themselves<br>
         In the words you gently lay.</p>`,
-        meta: "A gift for the magical pen"
+        meta: "For You"
       }
     };
     
